@@ -1,0 +1,124 @@
+.contact {
+  background: linear-gradient(135deg, #050514 0%, #001a41 60%, #050514 100%);
+  position: relative;
+  overflow: hidden;
+}
+.contact::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0,87,184,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .inner { grid-template-columns: 1fr 1fr; }
+}
+
+/* Text side */
+.title { color: white; margin-top: 12px; margin-bottom: 8px; }
+.sub { color: rgba(255,255,255,0.7); max-width: 480px; }
+
+.contactItems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 8px;
+}
+.contactItem { display: flex; align-items: flex-start; gap: 14px; }
+.contactIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(173, 199, 255, 0.1);
+  border: 1px solid rgba(173, 199, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--inverse-primary);
+  flex-shrink: 0;
+}
+.contactLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 2px;
+}
+.contactVal { font-size: 15px; font-weight: 500; color: white; }
+
+/* CTA Card */
+.ctaCard {
+  background: var(--surface-main);
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+}
+.waIcon {
+  width: 64px;
+  height: 64px;
+  background: var(--whatsapp-green);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+}
+.ctaTitle { color: var(--text-primary); }
+.ctaDesc { color: var(--text-muted); font-size: 15px; line-height: 1.65; }
+
+.waBtn {
+  background: var(--whatsapp-green);
+  color: white;
+  width: 100%;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.waBtn:hover {
+  background: #1da851;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+  transform: translateY(-2px);
+}
+.ctaNote {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  width: 100%;
+  letter-spacing: 0.02em;
+}
+
+/* Map Container */
+.mapContainer {
+  margin-top: clamp(40px, 6vw, 64px);
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-main);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+  border: 1px solid rgba(173, 199, 255, 0.1);
+  display: flex;
+}
+.mapFrame {
+  width: 100%;
+  height: clamp(300px, 40vw, 450px);
+  filter: invert(90%) hue-rotate(180deg) brightness(1.1) contrast(1.1);
+  display: block;
+}

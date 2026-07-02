@@ -1,0 +1,83 @@
+.ourCompany {
+  background: var(--surface-bright);
+  position: relative;
+  padding-bottom: clamp(48px, 7vw, 96px);
+}
+.ourCompany::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(80%, 800px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--outline-variant), transparent);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: clamp(32px, 5vw, 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.title { max-width: 600px; }
+.sub { max-width: 560px; color: var(--text-muted); }
+
+/* Logo-only row layout */
+.logoRow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(40px, 8vw, 80px);
+  flex-wrap: wrap;
+}
+
+.logoLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+.logoLink:hover {
+  transform: translateY(-4px);
+}
+
+.logoCircle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 64, 139, 0.25);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.logoLink:hover .logoCircle {
+  box-shadow: 0 8px 28px rgba(0, 64, 139, 0.35);
+  transform: scale(1.05);
+}
+
+.logoInitials {
+  color: white;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.logoName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.logoLink:hover .logoName {
+  color: var(--primary-container);
+}

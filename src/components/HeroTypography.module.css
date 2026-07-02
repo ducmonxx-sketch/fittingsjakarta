@@ -1,0 +1,116 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   HERO TYPOGRAPHY — Bold Fluid Manifesto (Modern Editorial)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.typographyContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding-left: 10%;
+  /* Fluid typography scaling as required by CONTEXT.md */
+  font-family: var(--font-sans, system-ui, sans-serif);
+  line-height: 0.85;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  user-select: none;
+  perspective: 1000px;
+}
+
+.wordBlock {
+  overflow: hidden;
+  margin-bottom: 8px;
+  /* Subtle interactive transition */
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: slideIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+  transform: translateX(40px);
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wordBlock:hover {
+    transform: translateX(30px) scale(1.02);
+  }
+}
+
+.wordBlock:active {
+  transform: translateX(15px) scale(1.01);
+}
+
+.wordOutline {
+  display: block;
+  /* Fluid typography scaling */
+  font-size: clamp(32px, 8vw, 120px);
+  color: transparent;
+  /* Muted grey outlines */
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+  transition: -webkit-text-stroke-color 0.4s ease, text-shadow 0.4s ease;
+  animation: sparkGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes sparkGlow {
+  0%, 80% { text-shadow: none; -webkit-text-stroke-color: rgba(255, 255, 255, 0.15); }
+  90% { text-shadow: 0 0 10px rgba(242, 184, 36, 0.5); -webkit-text-stroke-color: rgba(242, 184, 36, 0.6); }
+  100% { text-shadow: 0 0 2px rgba(242, 184, 36, 0.2); -webkit-text-stroke-color: rgba(255, 255, 255, 0.15); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wordBlock:hover .wordOutline {
+    /* Metallic gold accent on hover */
+    -webkit-text-stroke-color: rgba(242, 184, 36, 0.8);
+    text-shadow: 0 0 20px rgba(242, 184, 36, 0.2);
+  }
+}
+
+.wordBlock:active .wordOutline {
+  -webkit-text-stroke-color: rgba(242, 184, 36, 0.8);
+  text-shadow: 0 0 20px rgba(242, 184, 36, 0.2);
+}
+
+.wordFilled {
+  display: block;
+  font-size: clamp(32px, 8vw, 120px);
+  /* Bright metallic gold accent from CONTEXT.md */
+  background: linear-gradient(135deg, var(--gold-accent, #f2b824), var(--gold-light, #fcd97a));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 10px 30px rgba(242, 184, 36, 0.3);
+  transition: filter 0.4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wordBlock:hover .wordFilled {
+    filter: brightness(1.2);
+  }
+}
+
+.wordBlock:active .wordFilled {
+  filter: brightness(1.2);
+}
+
+.accentLine {
+  margin-top: 32px;
+  width: 0px;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold-accent, #f2b824), transparent);
+  animation: drawLine 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes drawLine {
+  to {
+    width: 120px;
+  }
+}
