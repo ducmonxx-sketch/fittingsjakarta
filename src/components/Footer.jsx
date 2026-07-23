@@ -41,9 +41,9 @@ export default function Footer() {
           <div>
             <h4 className={styles.colTitle}>Produk</h4>
             <ul className={styles.linkList}>
-              <li><a href="#products" className={styles.link}>Butt Welded Fittings</a></li>
-              <li><a href="#products" className={styles.link}>Seamless Fittings</a></li>
+              <li><a href="#products" className={styles.link}>Buttweld Fittings</a></li>
               <li><a href="#products" className={styles.link}>Forged Fittings</a></li>
+              <li><a href="#products" className={styles.link}>More Fittings</a></li>
             </ul>
           </div>
 
@@ -51,10 +51,10 @@ export default function Footer() {
           <div>
             <h4 className={styles.colTitle}>Perusahaan</h4>
             <ul className={styles.linkList}>
-              <li><a href="#history" className={styles.link}>Tentang Kami</a></li>
               <li><a href="#why-us" className={styles.link}>Mengapa Kami</a></li>
+              <li><a href="#about-us" className={styles.link}>Tentang Kami</a></li>
               <li><a href="#contact" className={styles.link}>Kontak</a></li>
-              <li><a href="#" className={styles.link}>Sertifikasi</a></li>
+              {/* <li><a href="#" className={styles.link}>Sertifikasi</a></li> */}
             </ul>
           </div>
 

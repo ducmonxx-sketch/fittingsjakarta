@@ -7,7 +7,6 @@ const NAV_LINKS = [
   { label: 'Produk',          sectionId: 'products' },
   { label: 'Mengapa Kami',    sectionId: 'why-us' },
   { label: 'Tentang Kami',    sectionId: 'about-us' },
-  { label: 'Perusahaan Kami', sectionId: 'our-company' },
   { label: 'Kontak',          sectionId: 'contact' },
 ]
 

@@ -11,7 +11,7 @@ export default function About() {
             <div className={styles.imgSide}>
               <div className={styles.imgFrame}>
                 <img
-                  src="/hero-bg.png"
+                  src="/hero-bg.webp"
                   alt="Gudang industri Fittings Jakarta menyimpan pipa dan fitting baja berkualitas tinggi"
                   className={styles.img}
                   loading="lazy"

@@ -356,6 +356,67 @@
   max-width: 320px;
 }
 
+/* ─── Material tabs ──────────────────────────────────── */
+.materialTabs {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.materialTabs::-webkit-scrollbar { display: none; }
+
+.materialTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-light);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+.materialTab:hover {
+  background: rgba(0, 87, 184, 0.06);
+  border-color: var(--primary-container);
+  color: var(--primary-container);
+}
+.materialTabActive {
+  background: var(--primary-container);
+  color: white;
+  border-color: var(--primary-container);
+  box-shadow: 0 2px 12px rgba(0, 87, 184, 0.25);
+}
+.materialTabActive:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.materialTabCount {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.7;
+}
+.materialTabActive .materialTabCount {
+  opacity: 0.9;
+}
+
+/* ─── Tab content wrapper ────────────────────────────── */
+.tabContent {
+  min-height: 120px;
+}
+
 /* ─── Product item grid ──────────────────────────────── */
 .itemGrid {
   display: flex;
@@ -376,7 +437,8 @@
   .itemGrid > * { width: calc(20% - 12.8px); }
 }
 
-.item {
+/* ─── Glass item cards ───────────────────────────────── */
+.glassItem {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -389,18 +451,22 @@
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.itemImgWrap {
+.glassItemImgWrap {
   position: relative;
   aspect-ratio: 1 / 1;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--surface-dim);
-  border: 1px solid var(--border-light);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: linear-gradient(145deg, rgba(0, 87, 184, 0.03), rgba(221, 225, 237, 0.4));
+  border: 1px solid rgba(0, 87, 184, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
-.item:hover .itemImgWrap {
+.glassItem:hover .glassItemImgWrap {
   border-color: var(--primary-container);
-  box-shadow: 0 4px 16px rgba(27, 59, 95, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 87, 184, 0.15), 0 0 0 1px rgba(0, 87, 184, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
 }
 
 .itemImg {
@@ -409,12 +475,21 @@
   padding: 12px;
   transition: transform 0.4s ease;
 }
-.item:hover .itemImg { transform: scale(1.08); }
+.glassItem:hover .itemImg { transform: scale(1.08); }
 
-/* Product spec overlay on hover — replaces old WA overlay */
+.itemImgSS {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  padding: 12px;
+  transition: transform 0.4s ease;
+  transform: scale(1.35);
+}
+.glassItem:hover .itemImgSS { transform: scale(1.45); }
+
+/* Product spec overlay on hover */
 .itemOverlay {
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(27, 59, 95, 0.85), rgba(27, 59, 95, 0.75));
+  background: linear-gradient(135deg, rgba(0, 87, 184, 0.88), rgba(27, 59, 95, 0.78));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -424,7 +499,7 @@
   padding: 12px;
 }
 @media (hover: hover) and (pointer: fine) {
-  .item:hover .itemOverlay { opacity: 1; }
+  .glassItem:hover .itemOverlay { opacity: 1; }
 }
 @media (hover: none) {
   .itemOverlay {
@@ -460,10 +535,10 @@
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.02em;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.12);
   padding: 3px 10px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.18);
 }
 
 .itemName {
@@ -474,7 +549,7 @@
   text-align: center;
   transition: color 0.2s;
 }
-.item:hover .itemName { color: var(--primary-container); }
+.glassItem:hover .itemName { color: var(--primary-container); }
 
 .itemSize {
   font-size: 11px;
@@ -484,33 +559,44 @@
   letter-spacing: 0.02em;
 }
 
-/* ─── Drawer footer CTA bar ──────────────────────────── */
-.drawerFooter {
+/* ─── CTA Banner (replaces old drawer footer) ────────── */
+.ctaBanner {
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: flex-start;
   margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px dashed var(--border-light);
+  padding: 18px 24px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(0, 87, 184, 0.06), rgba(27, 59, 95, 0.04));
+  border: 1px solid rgba(0, 87, 184, 0.12);
 }
 @media (min-width: 540px) {
-  .drawerFooter {
+  .ctaBanner {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
 }
-.drawerFooterText {
+.ctaBannerText {
   font-size: 13px;
   color: var(--text-muted);
   line-height: 1.4;
 }
-.drawerFooterBtn {
+.ctaBannerBtn {
   flex-shrink: 0;
   font-size: 12px;
   padding: 10px 18px;
   white-space: nowrap;
+  animation: breatheGlowBtn 3s ease-in-out infinite;
+}
+
+@keyframes breatheGlowBtn {
+  0%, 100% { box-shadow: 0 2px 10px rgba(0, 87, 184, 0.2); }
+  50% { box-shadow: 0 4px 18px rgba(0, 87, 184, 0.4); }
+}
+.ctaBannerBtn:hover {
+  animation: none;
 }
 
 /* ── Reduced motion ─────────────────────────────────── */
@@ -519,9 +605,12 @@
   .imgClickOverlay,
   .imgClickIcon,
   .ambientGlow,
-  .item,
+  .glassItem,
   .drawer,
   .toggleChevron,
+  .materialTab,
+  .glassItemImgWrap,
+  .ctaBannerBtn,
   .img {
     animation: none !important;
     transition-duration: 0.01ms !important;

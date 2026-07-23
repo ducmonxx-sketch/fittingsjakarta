@@ -5,7 +5,7 @@ import styles from './FAQ.module.css'
 const FAQS = [
   {
     q: 'Apa saja jenis fitting pipa yang tersedia di Fittings Jakarta?',
-    a: 'Fittings Jakarta menyediakan tiga kategori utama: Butt Welded Fittings untuk sistem perpipaan tekanan tinggi, Seamless Fittings untuk instalasi tahan lama, dan Forged Fittings untuk aplikasi industri berat.',
+    a: 'Fittings Jakarta menyediakan tiga kategori utama: Buttweld Fittings untuk sistem perpipaan tekanan tinggi, Forged Fittings untuk aplikasi industri berat, serta kategori More Fittings yang mencakup berbagai kebutuhan tambahan seperti Camlock, fitting baja tahan karat 304/316L #150, dan produk Sanitary.',
   },
   {
     q: 'Apakah Fittings Jakarta melayani pembelian B2B (perusahaan)?',
@@ -38,7 +38,7 @@ function FAQItem({ q, a, isOpen, onToggle, index }) {
         <span>{q}</span>
         <span className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`} aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M6 9l6 6 6-6"/>
+            <path d="M6 9l6 6 6-6" />
           </svg>
         </span>
       </button>

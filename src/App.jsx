@@ -32,7 +32,7 @@ export default function App() {
         <Products />
         <WhyUs />
         <About />
-        <OurCompany />
+        {/* <OurCompany /> */}
         <FAQ />
         <Contact />
       </main>

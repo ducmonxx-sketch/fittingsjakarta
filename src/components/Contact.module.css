@@ -107,6 +107,7 @@
 
 /* Map Container */
 .mapContainer {
+  position: relative;
   margin-top: clamp(40px, 6vw, 64px);
   width: 100%;
   border-radius: var(--radius-lg);
@@ -114,11 +115,85 @@
   background: var(--surface-main);
   box-shadow: 0 24px 64px rgba(0,0,0,0.4);
   border: 1px solid rgba(173, 199, 255, 0.1);
-  display: flex;
 }
+
 .mapFrame {
   width: 100%;
-  height: clamp(300px, 40vw, 450px);
-  filter: invert(90%) hue-rotate(180deg) brightness(1.1) contrast(1.1);
+  height: clamp(400px, 40vw, 500px);
+  filter: invert(100%) hue-rotate(180deg) brightness(1.05) contrast(1.1) saturate(1.2);
   display: block;
+}
+
+/* Glassmorphic Map Overlay Card */
+.mapOverlayCard {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 2;
+  background: linear-gradient(135deg, rgba(27, 59, 95, 0.95), rgba(0, 87, 184, 0.85));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(173, 199, 255, 0.2);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 600px) {
+  .mapOverlayCard {
+    right: auto;
+    width: 340px;
+    bottom: 24px;
+    left: 24px;
+  }
+}
+
+.mapOverlayTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 6px 0;
+}
+
+.mapOverlayDesc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 16px 0;
+}
+
+.mapOverlayBtn {
+  position: relative;
+  overflow: hidden;
+  font-size: 13px;
+  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.mapOverlayBtn:hover {
+  box-shadow: 0 6px 24px rgba(0, 87, 184, 0.6);
+  transform: translateY(-2px);
+}
+
+.sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
 }
