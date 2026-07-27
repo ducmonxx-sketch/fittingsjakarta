@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import './index.css'
+import { LanguageProvider } from './context/LanguageContext'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Products from './components/Products'
@@ -25,7 +26,7 @@ export default function App() {
   }, [])
 
   return (
-    <>
+    <LanguageProvider>
       <Header />
       <main id="main-content">
         <Hero />
@@ -38,6 +39,7 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppFAB />
-    </>
+    </LanguageProvider>
   )
 }
+

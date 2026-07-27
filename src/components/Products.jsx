@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import anime from 'animejs'
 import { useInView, FadeUp } from '../hooks'
+import { useLanguage } from '../context/LanguageContext'
 import styles from './Products.module.css'
+
 
 /* ─── Product catalogue data ─────────────────────────────────────── */
 const PRODUCTS = [
@@ -118,10 +120,12 @@ function SmoothDrawer({ isOpen, children, id }) {
 
 /* ─── Material tabs ──────────────────────────────────────────────── */
 function MaterialTabs({ groups, activeGroup, onChange, items }) {
+  const { t } = useLanguage()
   return (
     <div className={styles.materialTabs} role="tablist" aria-label="Material categories">
       {groups.map(g => {
         const count = items.filter(i => i.group === g).length
+        const groupLabel = t(`products.groups.${g}`) || g
         return (
           <button
             key={g}
@@ -130,7 +134,7 @@ function MaterialTabs({ groups, activeGroup, onChange, items }) {
             className={`${styles.materialTab} ${activeGroup === g ? styles.materialTabActive : ''}`}
             onClick={() => onChange(g)}
           >
-            <span>{g}</span>
+            <span>{groupLabel}</span>
             <span className={styles.materialTabCount}>({count})</span>
           </button>
         )
@@ -141,18 +145,16 @@ function MaterialTabs({ groups, activeGroup, onChange, items }) {
 
 /* ─── Drawer content (grouped with material tabs) ────────────────── */
 function DrawerContentGrouped({ product, isOpen }) {
+  const { t } = useLanguage()
   const groups = getGroups(product.items)
   const [activeGroup, setActiveGroup] = useState(groups[0])
   const gridRef = useRef(null)
   const isFirstRender = useRef(true)
 
-  // Reset to first group when drawer opens and preload images
   useEffect(() => {
     if (isOpen) {
       setActiveGroup(groups[0])
       isFirstRender.current = true
-      
-      // Preload all images for this product's tabs in the background
       product.items.forEach(item => {
         if (item.img) {
           const img = new Image()
@@ -160,21 +162,17 @@ function DrawerContentGrouped({ product, isOpen }) {
         }
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
 
-  // Animate items on tab switch
   const handleTabChange = useCallback((group) => {
     setActiveGroup(group)
     isFirstRender.current = false
   }, [])
 
-  // Run anime.js stagger after filtered items render
   useEffect(() => {
     if (!isOpen || isFirstRender.current) return
     const el = gridRef.current
     if (!el) return
-
     const items = el.querySelectorAll('[data-glass-item]')
     if (items.length === 0) return
 
@@ -189,26 +187,28 @@ function DrawerContentGrouped({ product, isOpen }) {
   }, [activeGroup, isOpen])
 
   const filtered = product.items.filter(i => i.group === activeGroup)
+  const categoryKey = product.id.split('-')[0]
+  const translatedName = t(`products.categories.${categoryKey}.name`) || product.name
 
   return (
     <div className={styles.drawerInner}>
-      {/* Header */}
       <div className={styles.drawerHeader}>
         <div className={styles.drawerMeta}>
-          <span className={styles.drawerCount}>{product.items.length} Produk</span>
-          <h3 className={styles.drawerTitle}>{product.name}</h3>
+          <span className={styles.drawerCount}>
+            {product.items.length} {t('products.itemsCount')}
+          </span>
+          <h3 className={styles.drawerTitle}>{translatedName}</h3>
           {product.features && (
             <p className={styles.drawerMaterials}>
-              Materials: {product.features.join(', ')}
+              {t('products.specMaterial')}: {product.features.join(', ')}
             </p>
           )}
         </div>
         <p className={styles.drawerNote}>
-          Hubungi kami via WhatsApp untuk stok &amp; harga terbaik.
+          {t('products.drawerNote')}
         </p>
       </div>
 
-      {/* Material tabs */}
       <MaterialTabs
         groups={groups}
         activeGroup={activeGroup}
@@ -216,12 +216,7 @@ function DrawerContentGrouped({ product, isOpen }) {
         items={product.items}
       />
 
-      {/* Filtered product grid */}
-      <div
-        className={styles.tabContent}
-        role="tabpanel"
-        aria-label={`Produk ${activeGroup}`}
-      >
+      <div className={styles.tabContent} role="tabpanel" aria-label={`Produk ${activeGroup}`}>
         <div className={styles.itemGrid} role="list" ref={gridRef}>
           {filtered.map((item, idx) => (
             <div
@@ -232,7 +227,7 @@ function DrawerContentGrouped({ product, isOpen }) {
               style={isOpen && isFirstRender.current
                 ? { animationDelay: `${idx * 0.04}s` }
                 : isOpen
-                  ? {} // anime.js handles animation
+                  ? {}
                   : { animation: 'none' }
               }
             >
@@ -242,7 +237,6 @@ function DrawerContentGrouped({ product, isOpen }) {
                   alt={item.name}
                   className={item.name.startsWith('SS ') ? styles.itemImgSS : styles.itemImg}
                 />
-                {/* Spec overlay on hover */}
                 <div className={styles.itemOverlay}>
                   <div className={styles.itemSpec}>
                     <span className={styles.itemSpecName}>{item.name}</span>
@@ -257,9 +251,8 @@ function DrawerContentGrouped({ product, isOpen }) {
         </div>
       </div>
 
-      {/* Footer CTA banner */}
       <div className={styles.ctaBanner}>
-        <p className={styles.ctaBannerText}>Butuh spesifikasi khusus atau ukuran lain?</p>
+        <p className={styles.ctaBannerText}>{t('products.ctaBannerText')}</p>
         <a
           href="https://wa.me/6221XXXXXXXX"
           className={`btn btn-primary ${styles.ctaBannerBtn}`}
@@ -269,7 +262,7 @@ function DrawerContentGrouped({ product, isOpen }) {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
-          Minta Katalog Lengkap
+          {t('products.ctaBannerBtn')}
         </a>
       </div>
     </div>
@@ -285,7 +278,6 @@ function ExpandIcon({ isOpen }) {
       aria-hidden="true"
     >
       {isOpen ? (
-        /* Collapse icon (chevrons inward) */
         <>
           <path d="M4 14h6v6" />
           <path d="M20 10h-6V4" />
@@ -293,7 +285,6 @@ function ExpandIcon({ isOpen }) {
           <path d="M3 21l7-7" />
         </>
       ) : (
-        /* Expand icon (arrows outward) */
         <>
           <path d="M15 3h6v6" />
           <path d="M9 21H3v-6" />
@@ -307,24 +298,27 @@ function ExpandIcon({ isOpen }) {
 
 /* ── Clickable image wrapper ────────────────────────────── */
 function ProductImage({ product, isOpen, onClick }) {
+  const { t } = useLanguage()
+  const categoryKey = product.id.split('-')[0]
+  const translatedName = t(`products.categories.${categoryKey}.name`) || product.name
+
   return (
     <div
       className={styles.imgWrap}
       onClick={onClick}
       role="button"
       tabIndex={0}
-      aria-label={isOpen ? `Tutup ${product.name}` : `Lihat produk ${product.name}`}
+      aria-label={isOpen ? `${t('products.hideSpecs')} ${translatedName}` : `${t('products.viewSpecs')} ${translatedName}`}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }}
     >
       <img src={product.img} alt={product.imgAlt} className={styles.img} loading="lazy" decoding="async" itemProp="image" />
       <div className={styles.imgOverlay} />
-      {/* Hover overlay with expand icon */}
       <div className={styles.imgClickOverlay}>
         <span className={styles.imgClickIcon}>
           <ExpandIcon isOpen={isOpen} />
         </span>
         <span className={styles.imgClickLabel}>
-          {isOpen ? 'Tutup Produk' : 'Lihat Produk'}
+          {isOpen ? t('products.hideSpecs') : t('products.viewSpecs')}
         </span>
       </div>
     </div>
@@ -333,6 +327,7 @@ function ProductImage({ product, isOpen, onClick }) {
 
 /* ── Toggle button ──────────────────────────────────────── */
 function ToggleBtn({ isOpen, count, onClick, targetId }) {
+  const { t } = useLanguage()
   return (
     <button
       className={`${styles.toggleBtn} ${isOpen ? styles.toggleBtnOpen : ''}`}
@@ -341,10 +336,10 @@ function ToggleBtn({ isOpen, count, onClick, targetId }) {
       aria-controls={targetId}
     >
       <span className={styles.toggleLabel}>
-        {isOpen ? 'Tutup Produk' : 'Lihat Produk'}
+        {isOpen ? t('products.hideSpecs') : t('products.viewSpecs')}
       </span>
       <span className={styles.toggleRight}>
-        <span className={styles.toggleCount}>{count} item</span>
+        <span className={styles.toggleCount}>{count} {t('products.itemsCountSuffix')}</span>
         <svg
           className={`${styles.toggleChevron} ${isOpen ? styles.toggleChevronOpen : ''}`}
           width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -361,6 +356,7 @@ function ToggleBtn({ isOpen, count, onClick, targetId }) {
 
 /* ─── Main Products section ──────────────────────────────────────── */
 export default function Products() {
+  const { t } = useLanguage()
   const [expanded, setExpanded] = useState(null)
   const toggle = (id) => setExpanded(prev => (prev === id ? null : id))
   
@@ -383,28 +379,29 @@ export default function Products() {
 
   return (
     <section id="products" className={`section ${styles.products}`} aria-labelledby="products-heading" ref={sectionRef}>
-      {/* Ambient background glow */}
       <div className={`${styles.ambientGlow} ${expanded ? styles.ambientGlowActive : ''}`} />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <FadeUp>
           <div className={styles.sectionHeader}>
-            <span className="badge">Produk Kami</span>
+            <span className="badge">{t('products.tag')}</span>
             <h2 id="products-heading" className={`headline-md ${styles.title}`}>
-              Kategori Produk Fitting Pipa Industri
+              {t('products.title')}
             </h2>
             <p className={`body-lg ${styles.subtitle}`}>
-              Tiga kategori utama fitting pipa industri berkualitas tinggi sesuai standar internasional.
-              Klik <strong>gambar</strong> atau <strong>Lihat Produk</strong> untuk melihat daftar lengkap beserta spesifikasi ukuran.
+              {t('products.subtitle')}
             </p>
           </div>
         </FadeUp>
 
-        {/* ── Mobile layout: drawer lives INSIDE each card ── */}
         <div className={styles.mobileStack}>
-          {PRODUCTS.map((p, i) => {
+          {PRODUCTS.map((p) => {
             const isOpen = expanded === p.id
             const drawerId = `drawer-mobile-${p.id}`
+            const categoryKey = p.id.split('-')[0]
+            const translatedName = t(`products.categories.${categoryKey}.name`) || p.name
+            const translatedDesc = t(`products.categories.${categoryKey}.desc`) || p.desc
+
             return (
               <div key={p.id} className="product-card-stagger" style={{ opacity: 0 }}>
                 <article
@@ -415,14 +412,13 @@ export default function Products() {
                   <div className={styles.accentBar} />
                   <ProductImage product={p} isOpen={isOpen} onClick={() => toggle(p.id)} />
                   <div className={styles.body}>
-                    <h3 id={`product-m-${p.id}`} className={`headline-sm ${styles.name}`} itemProp="name">{p.name}</h3>
-                    <p className={`body-md ${styles.desc}`} itemProp="description">{p.desc}</p>
+                    <h3 id={`product-m-${p.id}`} className={`headline-sm ${styles.name}`} itemProp="name">{translatedName}</h3>
+                    <p className={`body-md ${styles.desc}`} itemProp="description">{translatedDesc}</p>
                     <ul className={styles.features} aria-label="Spesifikasi">
                       {p.features.map(f => <li key={f}><span className={styles.chip}>{f}</span></li>)}
                     </ul>
                     <ToggleBtn isOpen={isOpen} count={p.items.length} onClick={() => toggle(p.id)} targetId={drawerId} />
                   </div>
-                  {/* Inline drawer — always inside card on mobile */}
                   <SmoothDrawer id={drawerId} isOpen={isOpen}>
                     <DrawerContentGrouped product={p} isOpen={isOpen} />
                   </SmoothDrawer>
@@ -432,13 +428,16 @@ export default function Products() {
           })}
         </div>
 
-        {/* ── Desktop layout: cards in row, drawer spans full width below ── */}
         <div className={styles.desktopGrid}>
           <div className={styles.grid}>
-            {PRODUCTS.map((p, i) => {
+            {PRODUCTS.map((p) => {
               const isOpen = expanded === p.id
               const isDimmed = expanded !== null && !isOpen
               const drawerId = `drawer-desk-${p.id}`
+              const categoryKey = p.id.split('-')[0]
+              const translatedName = t(`products.categories.${categoryKey}.name`) || p.name
+              const translatedDesc = t(`products.categories.${categoryKey}.desc`) || p.desc
+
               return (
                 <div key={p.id} className={`product-card-stagger ${styles.staggerItem}`} style={{ opacity: 0 }}>
                   <article
@@ -449,8 +448,8 @@ export default function Products() {
                     <div className={styles.accentBar} />
                     <ProductImage product={p} isOpen={isOpen} onClick={() => toggle(p.id)} />
                     <div className={styles.body}>
-                      <h3 id={`product-d-${p.id}`} className={`headline-sm ${styles.name}`} itemProp="name">{p.name}</h3>
-                      <p className={`body-md ${styles.desc}`} itemProp="description">{p.desc}</p>
+                      <h3 id={`product-d-${p.id}`} className={`headline-sm ${styles.name}`} itemProp="name">{translatedName}</h3>
+                      <p className={`body-md ${styles.desc}`} itemProp="description">{translatedDesc}</p>
                       <ul className={styles.features} aria-label="Spesifikasi">
                         {p.features.map(f => <li key={f}><span className={styles.chip}>{f}</span></li>)}
                       </ul>
@@ -462,7 +461,6 @@ export default function Products() {
             })}
           </div>
 
-          {/* Full-width drawers below grid — one per category */}
           {PRODUCTS.map(p => (
             <SmoothDrawer key={p.id} id={`drawer-desk-${p.id}`} isOpen={expanded === p.id}>
               <DrawerContentGrouped product={p} isOpen={expanded === p.id} />
