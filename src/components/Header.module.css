@@ -63,25 +63,23 @@
   transform: scale(1.02);
 }
 
-.logoIcon {
-  display: flex;
-  align-items: center;
-  color: var(--primary-container);
-  /* The SVG is 28x28, so no extra styles needed */
+.logoImage {
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  /* Slightly boost contrast to make logo pop after blending */
+  filter: contrast(1.1);
+  transform: scale(1.7);
+  transform-origin: left center;
+  margin-right: 100px; /* Compensate for scaled width to prevent overlap */
 }
 
-.logoText {
-  font-size: 16px; /* Resized to balance with the 28px circle icon */
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: var(--primary-dark);
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.logoText span {
-  color: var(--primary-container);
-  font-weight: 500;
+@media (max-width: 1023px) {
+  .logoImage {
+    transform: scale(1.4);
+    margin-right: 40px;
+  }
 }
 
 /* Desktop Nav */

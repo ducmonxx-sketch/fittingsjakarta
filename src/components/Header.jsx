@@ -52,16 +52,13 @@ export default function Header() {
           <a
             href="#home"
             className={styles.logo}
-            aria-label={`Fittings Jakarta - ${t('nav.home')}`}
+            aria-label={`PT Buana Logam Perkasa - ${t('nav.home')}`}
           >
-            <span className={styles.logoIcon}>
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                <circle cx="14" cy="14" r="13" stroke="currentColor" strokeWidth="2"/>
-                <path d="M8 14h12M14 8v12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-                <circle cx="14" cy="14" r="3" fill="currentColor"/>
-              </svg>
-            </span>
-            <span className={styles.logoText}>FITTINGS<span>JAKARTA</span></span>
+            <img 
+              src="/pt_buana_logam_perkasa.webp" 
+              alt="PT Buana Logam Perkasa" 
+              className={styles.logoImage}
+            />
           </a>
 
           {/* Desktop Nav */}

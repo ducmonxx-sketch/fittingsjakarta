@@ -1,9 +1,19 @@
+import { useEffect, useRef } from 'react'
+import anime from 'animejs'
 import { FadeUp, FadeIn, AnimatedCounter } from '../hooks'
 import { useLanguage } from '../context/LanguageContext'
 import styles from './About.module.css'
 
+const images = [
+  '/About-Us/about-store-11years-ago.webp',
+  '/About-Us/about-store.webp',
+  '/About-Us/logam-buana-perkasa-stocks 2.webp',
+  '/About-Us/valve-stocks.webp'
+]
+
 export default function About() {
   const { t } = useLanguage()
+  const stackRef = useRef(null)
 
   const features = [
     t('about.feat1'),
@@ -11,6 +21,81 @@ export default function About() {
     t('about.feat3'),
     t('about.p2'),
   ]
+
+  useEffect(() => {
+    if (!stackRef.current) return;
+    
+    let currentIndex = 0;
+    const items = stackRef.current.children;
+    const total = items.length;
+    
+    // Initial Setup
+    Array.from(items).forEach((item, i) => {
+      item.style.zIndex = total - i;
+      item.style.opacity = i === 0 ? 1 : 0;
+      item.style.transform = 'scale(1.0)';
+    });
+
+    // Start the Ken Burns effect on the first image
+    let activeScaleAnim = anime({
+      targets: items[0],
+      scale: [1.0, 1.08],
+      duration: 5000,
+      easing: 'linear'
+    });
+
+    const interval = setInterval(() => {
+      if (!items || items.length === 0) return;
+      const currentItem = items[currentIndex];
+      const nextIndex = (currentIndex + 1) % total;
+      const nextItem = items[nextIndex];
+      
+      // Start scaling the next item
+      activeScaleAnim = anime({
+        targets: nextItem,
+        scale: [1.0, 1.08],
+        duration: 5000,
+        easing: 'linear'
+      });
+      
+      // Fade out the current image
+      anime({
+        targets: currentItem,
+        opacity: [1, 0],
+        duration: 1000,
+        easing: 'easeInOutQuad'
+      });
+
+      // Fade in the next image
+      anime({
+        targets: nextItem,
+        opacity: [0, 1],
+        duration: 1000,
+        easing: 'easeInOutQuad',
+        complete: () => {
+          // Reset current item and send to the back of the stack
+          currentItem.style.zIndex = 0;
+          currentItem.style.transform = 'scale(1.0)';
+          
+          // Promote all other items in z-index
+          for (let i = 0; i < total; i++) {
+            if (i !== currentIndex) {
+              const currentZ = parseInt(items[i].style.zIndex || 0);
+              items[i].style.zIndex = currentZ + 1;
+            }
+          }
+          
+          currentIndex = nextIndex;
+        }
+      });
+    }, 4000);
+
+    return () => {
+      clearInterval(interval);
+      if (activeScaleAnim) activeScaleAnim.pause();
+      anime.remove(items);
+    };
+  }, []);
 
   return (
     <section id="about-us" className={`section ${styles.about}`} aria-labelledby="about-heading">
@@ -20,14 +105,18 @@ export default function About() {
           <FadeIn delay={0}>
             <div className={styles.imgSide}>
               <div className={styles.imgFrame}>
-                <img
-                  src="/about-store.webp"
-                  alt="PT. Buana Logam Perkasa Storefront"
-                  className={styles.img}
-                  loading="lazy"
-                  decoding="async"
-                  itemProp="image"
-                />
+                <div ref={stackRef} className={styles.imageStack}>
+                  {images.map((src, idx) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt={`PT. Buana Logam Perkasa - ${idx + 1}`}
+                      className={styles.stackImg}
+                      loading={idx === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                  ))}
+                </div>
                 <div className={styles.imgOverlay} />
               </div>
               {/* Floating stat card */}

@@ -19,11 +19,26 @@
   position: relative;
   box-shadow: var(--shadow-xl);
 }
-.img { width: 100%; height: 100%; object-fit: cover; }
+.imageStack {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.stackImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform, opacity;
+}
 .imgOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(0,64,139,0.1), transparent 60%);
+  pointer-events: none;
+  z-index: 100;
 }
 
 .statCard {
@@ -39,6 +54,7 @@
   flex-direction: column;
   gap: 12px;
   min-width: 180px;
+  z-index: 10;
 }
 @media (max-width: 480px) {
   .statCard { bottom: -16px; right: 8px; min-width: 160px; }

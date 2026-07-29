@@ -408,12 +408,13 @@
   .glowOrbs { display: block; }
 
   .contentGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
   }
 
   .content {
     text-align: left;
+    padding-right: 24px; /* Ensure text never touches the middle line directly */
   }
 
   .heroRight {
@@ -433,12 +434,12 @@
   }
 
   .heading {
-    max-width: 720px;
+    max-width: 100%; /* Let grid column dictate the wrap instead of hardcoded px */
   }
 
   .sub {
     margin-inline: 0;
-    max-width: 560px;
+    max-width: 100%; /* Let grid column dictate the wrap */
   }
 
   .ctas {
@@ -479,12 +480,12 @@
   }
 
   .heading {
-    max-width: 780px;
+    max-width: 100%;
     margin-bottom: 24px;
   }
 
   .sub {
-    max-width: 580px;
+    max-width: 100%;
     margin-bottom: 44px;
   }
 
