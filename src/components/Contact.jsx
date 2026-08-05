@@ -4,7 +4,7 @@ import { FadeUp } from '../hooks'
 import { useLanguage } from '../context/LanguageContext'
 import styles from './Contact.module.css'
 
-const WA_LINK = 'https://wa.me/6221XXXXXXXX'
+const WA_LINK = 'https://wa.me/6281808188808'
 
 export default function Contact() {
   const { t } = useLanguage()
@@ -58,7 +58,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className={styles.contactLabel}>{t('contact.phoneOfficeLabel')}</div>
-                    <div className={styles.contactVal} itemProp="telephone">+62 21 XXXXXXXX</div>
+                    <div className={styles.contactVal} itemProp="telephone" style={{ marginBottom: 4 }}>+62 812-1836-3558 (Admin A)</div>
+                    <div className={styles.contactVal} itemProp="telephone">+62 812-8829-6508 (Admin B)</div>
                   </div>
                 </div>
                 <div className={styles.contactItem}>
@@ -87,15 +88,26 @@ export default function Contact() {
               <p className={`body-md ${styles.ctaDesc}`}>
                 {t('contact.subtitle')}
               </p>
-              <a
-                href={WA_LINK}
-                className={`btn ${styles.waBtn}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={t('common.whatsappBtn')}
-              >
-                {t('common.whatsappBtn')}
-              </a>
+              <div className={styles.waButtons}>
+                <a
+                  href="https://wa.me/6281218363558"
+                  className={`btn ${styles.waBtn}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Hubungi Admin A"
+                >
+                  Hubungi Admin A
+                </a>
+                <a
+                  href="https://wa.me/6281288296508"
+                  className={`btn ${styles.waBtn}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Hubungi Admin B"
+                >
+                  Hubungi Admin B
+                </a>
+              </div>
               <p className={styles.ctaNote}>{t('contact.note')}</p>
             </div>
           </FadeUp>

@@ -20,7 +20,14 @@
 }
 .grid > * { height: 100%; }
 @media (min-width: 540px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Center the 3rd card on tablet when it wraps to the next row */
+@media (min-width: 540px) and (max-width: 1023px) {
+  .grid > :nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
 
 .card {
   background: var(--surface-main);

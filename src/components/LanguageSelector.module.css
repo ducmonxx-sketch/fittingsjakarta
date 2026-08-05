@@ -35,9 +35,13 @@
   box-shadow: 0 0 16px rgba(242, 184, 36, 0.25);
 }
 
-.flag {
-  font-size: 1.05rem;
-  line-height: 1;
+.flagIcon {
+  width: 20px;
+  height: 15px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 .codeText {

@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext'
 import HeroTypography from './HeroTypography'
 import styles from './Hero.module.css'
 
-const WA_LINK = 'https://wa.me/6221XXXXXXXX'
+const WA_LINK = 'https://wa.me/6281218363558'
 
 
 

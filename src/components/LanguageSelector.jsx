@@ -3,8 +3,8 @@ import { useLanguage } from '../context/LanguageContext'
 import styles from './LanguageSelector.module.css'
 
 const LANGUAGES = [
-  { code: 'id', label: 'ID', name: 'Bahasa Indonesia', flag: '🇮🇩' },
-  { code: 'en', label: 'EN', name: 'English', flag: '🇬🇧' },
+  { code: 'id', label: 'ID', name: 'Bahasa Indonesia', flag: 'https://flagcdn.com/id.svg' },
+  { code: 'en', label: 'EN', name: 'English', flag: 'https://flagcdn.com/gb.svg' },
 ]
 
 export default function LanguageSelector({ variant = 'desktop' }) {
@@ -41,7 +41,7 @@ export default function LanguageSelector({ variant = 'desktop' }) {
               className={`${styles.mobileBtn} ${lang === code ? styles.mobileBtnActive : ''}`}
               onClick={() => setLang(code)}
             >
-              <span className={styles.flag}>{flag}</span>
+              <img src={flag} alt="" className={styles.flagIcon} width="20" height="15" loading="lazy" />
               <span className={styles.codeText}>{label}</span>
             </button>
           ))}
@@ -60,7 +60,7 @@ export default function LanguageSelector({ variant = 'desktop' }) {
         aria-expanded={open}
         aria-haspopup="listbox"
       >
-        <span className={styles.flag}>{currentLang.flag}</span>
+        <img src={currentLang.flag} alt="" className={styles.flagIcon} width="20" height="15" loading="lazy" />
         <span className={styles.codeText}>{currentLang.label}</span>
         <svg
           className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`}
@@ -86,7 +86,7 @@ export default function LanguageSelector({ variant = 'desktop' }) {
                 className={`${styles.option} ${lang === code ? styles.optionSelected : ''}`}
                 onClick={() => handleSelect(code)}
               >
-                <span className={styles.flag}>{flag}</span>
+                <img src={flag} alt="" className={styles.flagIcon} width="20" height="15" loading="lazy" />
                 <span className={styles.optionName}>{name}</span>
                 {lang === code && (
                   <svg className={styles.checkIcon} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">

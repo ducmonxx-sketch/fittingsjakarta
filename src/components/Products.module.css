@@ -374,9 +374,9 @@
   gap: 6px;
   padding: 9px 18px;
   border-radius: var(--radius-full);
-  border: 1.5px solid var(--border-light);
-  background: transparent;
-  color: var(--text-muted);
+  border: 1.5px solid var(--outline-variant);
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--on-surface);
   font-family: inherit;
   font-size: 12px;
   font-weight: 700;

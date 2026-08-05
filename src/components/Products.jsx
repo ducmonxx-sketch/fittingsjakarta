@@ -30,7 +30,7 @@ const PRODUCTS = [
   {
     id: 'forged-fittings',
     name: 'Forged Fittings',
-    img: '/forged_thumbnail_white.webp',
+    img: '/forged_thumbnail_white.webp?v=2',
     imgAlt: 'Carbon steel pipe fittings untuk sistem perpipaan tugas berat',
     desc: 'Fitting pipa carbon steel yang kuat dan andal untuk sistem perpipaan industri, konstruksi, struktur, dan tekanan tinggi.',
     features: ['304/L', '316/L', 'A105'],
@@ -56,7 +56,7 @@ const PRODUCTS = [
   {
     id: 'more-fittings',
     name: 'More Fittings',
-    img: '/more_fittings_thumbnail_white.webp',
+    img: '/more_fittings_thumbnail_white.webp?v=2',
     imgAlt: 'Berbagai jenis fitting tambahan untuk kebutuhan perpipaan industri',
     desc: 'Koleksi fitting tambahan meliputi flange, gasket, bolt & nut, valve, dan aksesoris perpipaan lainnya untuk melengkapi sistem perpipaan Anda.',
     features: ['Multi-Category', 'All Materials', 'Custom Order'],
@@ -254,7 +254,7 @@ function DrawerContentGrouped({ product, isOpen }) {
       <div className={styles.ctaBanner}>
         <p className={styles.ctaBannerText}>{t('products.ctaBannerText')}</p>
         <a
-          href="https://wa.me/6221XXXXXXXX"
+          href="https://wa.me/6281218363558"
           className={`btn btn-primary ${styles.ctaBannerBtn}`}
           target="_blank"
           rel="noopener noreferrer"

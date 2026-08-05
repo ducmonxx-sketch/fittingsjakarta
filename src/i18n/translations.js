@@ -110,11 +110,11 @@ export const translations = {
       }
     },
     about: {
-      tag: 'Standar Industri Nasional',
+      tag: 'Tentang Kami',
       title: 'Satu Dekade Keunggulan dalam',
       titleGold: 'Solusi Perpipaan Industri',
-      p1: 'PT Fittings Jakarta Utama lebih dari sekadar penyuplai; kami adalah fondasi bagi infrastruktur vital di Indonesia. Dari sektor Migas hingga Pembangkit Listrik, kami menyalurkan komponen berkinerja tinggi yang menggerakkan industri secara aman dan efisien.',
-      p2: 'Selama lebih dari 10 tahun, komitmen tak tergoyahkan kami terhadap presisi dan daya tahan telah menjadikan kami mitra utama untuk produk stainless steel (304/316), carbon steel, dan valve industri premium.',
+      p1: 'Fittings Jakarta adalah mitra terpercaya untuk kebutuhan infrastruktur perpipaan Anda. Kami berdedikasi untuk menyuplai komponen berkualitas tinggi yang menjamin keamanan dan efisiensi proyek Anda.',
+      p2: 'Berpengalaman lebih dari 10 tahun, kami memastikan setiap produk kami memenuhi standar industri terbaik, memberikan Anda ketenangan dan keandalan dalam setiap instalasi.',
       feat1: '100% Traceability dengan Sertifikasi ASTM/ASME',
       feat2: 'Inventori Masif untuk Pengiriman Cepat Nasional',
       feat3: 'Dukungan Konsultan Teknis & Engineer Dedikatif',
@@ -156,11 +156,11 @@ export const translations = {
       successMsg: 'Terima kasih! Pesan Anda telah terkirim. Tim kami akan segera menghubungi Anda.',
       officeTitle: 'Gudang & Kantor Pusat',
       addressLabel: 'Alamat Kantor:',
-      addressValue: 'Jl. Industri Raya No. 88, Kemayoran, Jakarta Pusat 10610',
+      addressValue: 'LTC Glodok, Lantai SB Blok C1 No 15',
       phoneOfficeLabel: 'Telepon / WA:',
       emailOfficeLabel: 'Email:',
       hoursLabel: 'Jam Operasional:',
-      hoursValue: 'Senin - Sabtu: 08:00 - 17:00 WIB',
+      hoursValue: 'Senin - Sabtu: 08:00 - 16:30 WIB',
       note: 'Gratis konsultasi • Tanpa biaya tersembunyi',
     },
     footer: {
@@ -168,8 +168,14 @@ export const translations = {
       aboutDesc: 'Distributor resmi fitting pipa industri, stainless steel 304/316, flange, dan valve berkualitas tinggi di Indonesia.',
       quickLinksTitle: 'Navigasi Cepat',
       productsTitle: 'Kategori Produk',
-      copyright: 'PT Fittings Jakarta Utama. Hak Cipta Dilindungi Undang-Undang.',
+      copyright: 'Jakarta Fittings. Hak Cipta Dilindungi Undang-Undang.',
       designerText: 'Designed for High-Performance Industrial Excellence.',
+    },
+    notFound: {
+      title: '404',
+      subtitleLine1: 'Sepertinya koneksi ini terputus.',
+      subtitleLine2: 'Mari kembali ke jalur pipa utama.',
+      btnReturn: 'Kembali ke Jalur Utama',
     }
   },
   en: {
@@ -283,11 +289,11 @@ export const translations = {
       }
     },
     about: {
-      tag: 'The Industry Standard',
+      tag: 'About Us',
       title: 'A Decade of Excellence in',
       titleGold: 'Industrial Piping Solutions',
-      p1: 'PT Fittings Jakarta Utama isn\'t just a supplier; we are the backbone of Indonesia\'s most critical infrastructure. From Oil & Gas to Power Generation, we deliver high-performance piping components that keep industries moving safely and efficiently.',
-      p2: 'For over 10 years, our unwavering commitment to precision and durability has made us the go-to partner for premium stainless steel (304/316), carbon steel, and industrial valves.',
+      p1: 'Fittings Jakarta is your trusted partner for critical piping infrastructure. We are dedicated to supplying high-quality components that guarantee the safety and efficiency of your projects.',
+      p2: 'With over 10 years of experience, we ensure every product meets the highest industry standards, giving you peace of mind and reliability in every installation.',
       feat1: '100% ASTM/ASME Certified Traceability',
       feat2: 'Massive Inventory for Nationwide Express Delivery',
       feat3: 'Dedicated Technical Engineering Support Team',
@@ -329,11 +335,11 @@ export const translations = {
       successMsg: 'Thank you! Your message has been sent. Our team will contact you shortly.',
       officeTitle: 'Headquarters & Main Warehouse',
       addressLabel: 'Office Address:',
-      addressValue: 'Jl. Industri Raya No. 88, Kemayoran, Central Jakarta 10610, Indonesia',
+      addressValue: 'LTC Glodok, Lantai SB Blok C1 No 15',
       phoneOfficeLabel: 'Phone / WA:',
       emailOfficeLabel: 'Email:',
       hoursLabel: 'Business Hours:',
-      hoursValue: 'Monday - Saturday: 08:00 - 17:00 WIB',
+      hoursValue: 'Monday - Saturday: 08:00 - 16:30 WIB',
       note: 'Free consultation • No hidden fees',
     },
     footer: {
@@ -341,8 +347,14 @@ export const translations = {
       aboutDesc: 'Official distributor of high-quality industrial pipe fittings, stainless steel 304/316, flanges, and valves in Indonesia.',
       quickLinksTitle: 'Quick Links',
       productsTitle: 'Product Categories',
-      copyright: 'PT Fittings Jakarta Utama. All Rights Reserved.',
+      copyright: 'Jakarta Fittings. All Rights Reserved.',
       designerText: 'Designed for High-Performance Industrial Excellence.',
+    },
+    notFound: {
+      title: '404',
+      subtitleLine1: 'Looks like this connection is missing.',
+      subtitleLine2: "Let's get you back to the main pipeline.",
+      btnReturn: 'Return to Main Pipeline',
     }
   }
 }

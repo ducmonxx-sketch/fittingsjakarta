@@ -7,12 +7,14 @@ import Products from './components/Products'
 import WhyUs from './components/WhyUs'
 import About from './components/About'
 import OurCompany from './components/OurCompany'
-import FAQ from './components/FAQ'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import WhatsAppFAB from './components/WhatsAppFAB'
+import NotFound from './components/NotFound'
 
 export default function App() {
+  const isNotFound = window.location.pathname !== '/' && window.location.pathname !== '/index.html'
+
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
@@ -25,6 +27,14 @@ export default function App() {
     }, 10)
   }, [])
 
+  if (isNotFound) {
+    return (
+      <LanguageProvider>
+        <NotFound />
+      </LanguageProvider>
+    )
+  }
+
   return (
     <LanguageProvider>
       <Header />
@@ -34,7 +44,6 @@ export default function App() {
         <WhyUs />
         <About />
         {/* <OurCompany /> */}
-        <FAQ />
         <Contact />
       </main>
       <Footer />

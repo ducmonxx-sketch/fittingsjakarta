@@ -33,15 +33,7 @@ export default function WhyUs() {
       title: t('whyUs.card3Title'),
       desc: t('whyUs.card3Desc'),
     },
-    {
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/>
-        </svg>
-      ),
-      title: t('whyUs.card4Title'),
-      desc: t('whyUs.card4Desc'),
-    },
+
   ]
 
   const INDUSTRIES = [
@@ -152,7 +144,8 @@ export default function WhyUs() {
             <div className={styles.sectionHeader}>
               <span className="badge">{t('whyUs.tag')}</span>
               <h2 id="why-us-heading" className={`headline-md ${styles.title}`}>
-                {t('whyUs.title')} <span className="goldText">{t('whyUs.titleGold')}</span>
+                {t('whyUs.title')} <br />
+                <span className="goldText">{t('whyUs.titleGold')}</span>
               </h2>
               <p className={`body-lg ${styles.subtitle}`}>
                 {t('whyUs.subtitle')}

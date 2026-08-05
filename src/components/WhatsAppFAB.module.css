@@ -1,27 +1,127 @@
-.fab {
+.fabContainer {
   position: fixed;
   bottom: 24px;
   right: 24px;
   z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.fabContainer.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  transform-origin: bottom right;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  visibility: hidden;
+}
+.menu.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 8px 16px 8px 8px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: 1px solid var(--border-light);
+}
+.menuItem:hover {
+  background: var(--surface-bright);
+  transform: translateX(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: rgba(37, 211, 102, 0.3);
+}
+.menuIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--whatsapp-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fab {
   background: var(--whatsapp-green);
   color: white;
   display: flex;
   align-items: center;
-  gap: 0;
   padding: 14px;
   border-radius: var(--radius-full);
   box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
   transition: all 0.3s ease;
-  opacity: 0;
-  transform: scale(0.7) translateY(20px);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: relative;
 }
-.fab.visible { opacity: 1; transform: scale(1) translateY(0); }
 .fab:hover {
-  gap: 10px;
-  padding: 14px 20px;
-  border-radius: var(--radius-sm);
   box-shadow: 0 8px 32px rgba(37, 211, 102, 0.5);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
+}
+.fab.isOpen {
+  background: #191c22;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.fabIconWrap {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.fabIcon {
+  position: absolute;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+/* Default state: WA icon visible, close hidden */
+.iconWa {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+.iconClose {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+/* Open state: WA icon hidden, close visible */
+.fab.isOpen .iconWa {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+.fab.isOpen .iconClose {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
 }
 
 .label {
@@ -31,18 +131,24 @@
   max-width: 0;
   overflow: hidden;
   white-space: nowrap;
-  transition: max-width 0.3s ease;
+  transition: max-width 0.3s ease, margin 0.3s ease;
 }
-.fab:hover .label { max-width: 120px; }
+.fab:hover:not(.isOpen) .label {
+  max-width: 120px;
+  margin-left: 10px;
+}
 
-/* Pulse ring */
 .pulse {
   position: absolute;
   inset: -4px;
   border-radius: inherit;
   border: 2px solid var(--whatsapp-green);
   opacity: 0;
+  pointer-events: none;
   animation: ripple 3s ease-in-out 2s infinite;
+}
+.fab.isOpen .pulse {
+  display: none;
 }
 @keyframes ripple {
   0% { transform: scale(1); opacity: 0.6; }

@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext'
 import LanguageSelector from './LanguageSelector'
 import styles from './Header.module.css'
 
-const WA_LINK = 'https://wa.me/6221XXXXXXXX'
+const WA_LINK = 'https://wa.me/6281218363558'
 
 
 export default function Header() {

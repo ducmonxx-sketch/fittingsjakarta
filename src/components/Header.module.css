@@ -1,13 +1,14 @@
 .header {
   position: fixed;
-  top: 0;
+  top: -1px; /* Subpixel scroll gap fix */
+  padding-top: 1px;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -24,9 +25,7 @@
 }
 
 .header.scrolled {
-  background: rgba(255, 255, 255, 0.98);
   box-shadow: 0 4px 24px rgba(0, 64, 139, 0.08);
-  border-bottom-color: rgba(0, 0, 0, 0.06);
 }
 
 .header.scrolled::before {
@@ -70,15 +69,15 @@
   mix-blend-mode: multiply;
   /* Slightly boost contrast to make logo pop after blending */
   filter: contrast(1.1);
-  transform: scale(1.7);
+  transform: scale(2.2);
   transform-origin: left center;
-  margin-right: 100px; /* Compensate for scaled width to prevent overlap */
+  margin-right: 140px; /* Compensate for scaled width to prevent overlap */
 }
 
 @media (max-width: 1023px) {
   .logoImage {
-    transform: scale(1.4);
-    margin-right: 40px;
+    transform: scale(1.8);
+    margin-right: 80px;
   }
 }
 

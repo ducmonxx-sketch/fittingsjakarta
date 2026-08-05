@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+
+  <defs>
+    <linearGradient id="blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DB4FF"></stop>
+      <stop offset="100%" stop-color="#0076D6"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Top Flange -->
+  <circle cx="256" cy="160" r="88" fill="none" stroke="url(#blue)" stroke-width="36"></circle>
+
+  <!-- Bottom Flange -->
+  <circle cx="256" cy="352" r="88" fill="none" stroke="url(#blue)" stroke-width="36"></circle>
+
+  <!-- Bolt Holes -->
+  <g fill="#FFFFFF">
+
+    <!-- Top -->
+    <circle cx="256" cy="72" r="9"></circle>
+    <circle cx="318" cy="96" r="9"></circle>
+    <circle cx="344" cy="160" r="9"></circle>
+    <circle cx="318" cy="224" r="9"></circle>
+    <circle cx="256" cy="248" r="9"></circle>
+    <circle cx="194" cy="224" r="9"></circle>
+    <circle cx="168" cy="160" r="9"></circle>
+    <circle cx="194" cy="96" r="9"></circle>
+
+    <!-- Bottom -->
+    <circle cx="256" cy="264" r="9"></circle>
+    <circle cx="318" cy="288" r="9"></circle>
+    <circle cx="344" cy="352" r="9"></circle>
+    <circle cx="318" cy="416" r="9"></circle>
+    <circle cx="256" cy="440" r="9"></circle>
+    <circle cx="194" cy="416" r="9"></circle>
+    <circle cx="168" cy="352" r="9"></circle>
+    <circle cx="194" cy="288" r="9"></circle>
+
+  </g>
+
+</svg>
