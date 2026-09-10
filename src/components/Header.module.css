@@ -5,11 +5,12 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  /* Opaque fill — no backdrop-filter. A full-width blurred layer over a
+     fixed header forces the browser to re-sample and re-blur the page behind
+     it on every scroll frame, and at 0.98 white the blur was imperceptible. */
+  background: #ffffff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header::before {

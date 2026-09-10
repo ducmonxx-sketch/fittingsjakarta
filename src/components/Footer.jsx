@@ -15,12 +15,15 @@ export default function Footer() {
           {/* Brand col */}
           <div className={styles.brand}>
             <div className={styles.logo}>
-              <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                <circle cx="14" cy="14" r="13" stroke="rgba(173,199,255,0.6)" strokeWidth="1.5"/>
-                <path d="M8 14h12M14 8v12" stroke="rgba(173,199,255,0.9)" strokeWidth="2.5" strokeLinecap="round"/>
-                <circle cx="14" cy="14" r="3" fill="rgba(173,199,255,0.9)"/>
-              </svg>
-              <span>FITTINGS JAKARTA</span>
+              <img
+                src="/pt_buana_logam_perkasa_dark.webp?v=2"
+                alt="PT Buana Logam Perkasa"
+                className={styles.logoImage}
+                width="1755"
+                height="288"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <p className={styles.tagline}>
               {t('footer.aboutDesc')}

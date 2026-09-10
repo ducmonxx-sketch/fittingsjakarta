@@ -8,8 +8,8 @@ const COMPANIES = [
     logoPlaceholder: 'JV',
   },
   {
-    name: 'Fittings Jakarta',
-    url: 'https://fittingsjakarta.com',
+    name: 'Fittings Indonesia',
+    url: 'https://fittingsindonesia.com',
     logoPlaceholder: 'FJ',
   },
 ]

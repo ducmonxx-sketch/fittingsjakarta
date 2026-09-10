@@ -55,7 +55,7 @@ export default function Header() {
             aria-label={`PT Buana Logam Perkasa - ${t('nav.home')}`}
           >
             <img 
-              src="/pt_buana_logam_perkasa.webp" 
+              src="/pt_buana_logam_perkasa.webp?v=2" 
               alt="PT Buana Logam Perkasa" 
               className={styles.logoImage}
             />

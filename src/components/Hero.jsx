@@ -2,12 +2,10 @@ import { useEffect, useRef } from 'react'
 import anime from 'animejs'
 import { AnimatedCounter } from '../hooks'
 import { useLanguage } from '../context/LanguageContext'
-import HeroTypography from './HeroTypography'
+import LiquidWordmark from './LiquidWordmark'
 import styles from './Hero.module.css'
 
 const WA_LINK = 'https://wa.me/6281218363558'
-
-
 
 export default function Hero() {
   const { t } = useLanguage()
@@ -20,15 +18,22 @@ export default function Hero() {
   ]
 
   useEffect(() => {
-    const tl = anime.timeline({
-      easing: 'spring(1, 80, 10, 0)'
-    })
-    
-    tl.add({
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.hero-stagger-item').forEach((el) => {
+        el.style.opacity = '1'
+      })
+      return
+    }
+
+    // Fixed-duration easeOutQuint instead of spring(): spring easing computes an
+    // open-ended duration and tends to run long and stutter on load.
+    anime({
       targets: '.hero-stagger-item',
       translateY: [32, 0],
       opacity: [0, 1],
-      delay: anime.stagger(150, { start: 200 })
+      duration: 800,
+      easing: 'easeOutQuint',
+      delay: anime.stagger(120, { start: 150 }),
     })
   }, [])
 
@@ -41,67 +46,42 @@ export default function Hero() {
       itemScope
       itemType="https://schema.org/WPHeader"
     >
-      {/* ── Background Image ── */}
-      <div className={styles.bg} aria-hidden="true">
-        <img
-          src="/hero-bg.webp"
-          alt=""
-          className={styles.bgImg}
-          fetchPriority="high"
-          decoding="async"
-          width="1200"
-          height="800"
-        />
-        <div className={styles.overlay} />
-        <div className={styles.gradientOverlay} />
-      </div>
-
-      {/* ── Decorative Grid Lines ── */}
-      <div className={styles.gridLines} aria-hidden="true">
-        {[...Array(6)].map((_, i) => (
-          <div key={i} className={styles.gridLine} style={{ '--i': i }} />
-        ))}
-      </div>
-
-      {/* ── Floating Glow Orbs ── */}
+      {/* ── Glow Orb ── */}
       <div className={styles.glowOrbs} aria-hidden="true">
         <div className={styles.glowOrb} />
-        <div className={styles.glowOrb} />
-        <div className={styles.glowOrb} />
       </div>
 
-      {/* ── Main Content — Two-Column Grid ── */}
-      <div className={`container ${styles.contentGrid}`}>
-        {/* Left Column — Text Content */}
-        <div className={styles.content}>
+      <div className={`container ${styles.stage}`}>
 
-          {/* Badge */}
-          <StaggerItem>
-            <div className={styles.badge}>
-              <span className={styles.badgeDot} />
-              {t('hero.badge')}
-            </div>
-          </StaggerItem>
+        {/* ── Top Rail — badge + technical standards ── */}
+        <div className={`hero-stagger-item ${styles.topRail}`} style={{ opacity: 0 }}>
+          <div className={styles.badge}>
+            <span className={styles.badgeDot} />
+            {t('hero.badge')}
+          </div>
+          <span className={styles.specNote} aria-hidden="true">
+            ANSI B16.9 <i>/</i> ASTM A234 <i>/</i> A403
+          </span>
+        </div>
 
-          {/* H1 — primary SEO keyword target */}
-          <StaggerItem>
-            <h1 id="hero-heading" className={`display-lg ${styles.heading}`} itemProp="headline">
+        {/* ── Type Stage — monumental wordmark ── */}
+        <div className={`hero-stagger-item ${styles.typeStage}`} style={{ opacity: 0 }}>
+          <LiquidWordmark />
+        </div>
+
+        {/* ── Lower Rail — content docked into the negative space ── */}
+        <div className={styles.lowerRail}>
+          <div className={`hero-stagger-item ${styles.content}`} style={{ opacity: 0 }}>
+            <h1 id="hero-heading" className={styles.heading} itemProp="headline">
               {t('hero.title1')}{' '}
-              <span className={styles.goldHighlight}>{t('hero.title2')}</span>
-              <br />
-              <span className={styles.headingAccent}>{t('hero.title3')}</span>
+              <span className={styles.headingAccent}>{t('hero.title2')}</span>{' '}
+              {t('hero.title3')}
             </h1>
-          </StaggerItem>
 
-          {/* Subheading — secondary keywords */}
-          <StaggerItem>
-            <p className={`body-lg ${styles.sub}`} itemProp="description">
+            <p className={styles.sub} itemProp="description">
               {t('hero.subtitle')}
             </p>
-          </StaggerItem>
 
-          {/* CTA Row */}
-          <StaggerItem>
             <div className={styles.ctas}>
               <a
                 href={WA_LINK}
@@ -127,49 +107,21 @@ export default function Hero() {
                 </svg>
               </a>
             </div>
-          </StaggerItem>
+          </div>
 
-          {/* Divider */}
-          <StaggerItem>
-            <div className={styles.divider} aria-hidden="true" />
-          </StaggerItem>
-
-          {/* Trust Stats — animated counters */}
-          <StaggerItem>
-            <div className={styles.stats} role="list" aria-label={t('hero.trustNotice')}>
-              {trustStats.map(({ value, suffix, label }) => (
-                <div key={label} className={styles.stat} role="listitem">
-                  <span className={styles.statValue}>
-                    <AnimatedCounter target={value} suffix={suffix} duration={1800} />
-                  </span>
-                  <span className={styles.statLabel}>{label}</span>
-                </div>
-              ))}
-            </div>
-          </StaggerItem>
+          {/* Stats rail — hairline-divided, docked right */}
+          <div className={`hero-stagger-item ${styles.stats}`} style={{ opacity: 0 }} role="list" aria-label={t('hero.trustNotice')}>
+            {trustStats.map(({ value, suffix, label }) => (
+              <div key={label} className={styles.stat} role="listitem">
+                <span className={styles.statValue}>
+                  <AnimatedCounter target={value} suffix={suffix} duration={1800} />
+                </span>
+                <span className={styles.statLabel}>{label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-
-        {/* Right Column — Bold Fluid Typography (Hidden on Mobile) */}
-        <div className={styles.heroRight}>
-          <HeroTypography />
-        </div>
-      </div>
-
-      {/* ── Scroll Indicator ── */}
-      <div className={styles.scrollCue} aria-hidden="true">
-        <span className={styles.scrollText}>Scroll</span>
-        <div className={styles.scrollLine} />
       </div>
     </section>
   )
 }
-
-/* ─── Stagger Animation Wrapper ─────────────────────────────────────────── */
-function StaggerItem({ children }) {
-  return (
-    <div className="hero-stagger-item" style={{ opacity: 0 }}>
-      {children}
-    </div>
-  )
-}
-

@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import anime from 'animejs'
 
+const prefersReducedMotion =
+  typeof window !== 'undefined' &&
+  window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
 // ─── Intersection Observer Hook ───────────────────────────────────────────────
 export function useInView(options = {}) {
   const ref = useRef(null)
@@ -27,26 +31,27 @@ export function useInView(options = {}) {
 }
 
 // ─── Animate on scroll wrapper ─────────────────────────────────────────────
+// CSS transition driven (compositor-only opacity/transform) rather than a
+// per-frame JS animation — several of these firing at once while the user
+// scrolls was the main source of scroll jank.
 export function FadeUp({ children, delay = 0, className = '', style = {} }) {
   const [ref, inView] = useInView()
-  const hasAnimated = useRef(false)
-
-  useEffect(() => {
-    if (inView && ref.current && !hasAnimated.current) {
-      hasAnimated.current = true
-      anime({
-        targets: ref.current,
-        translateY: [32, 0],
-        opacity: [0, 1],
-        duration: 1000,
-        delay: delay * 1000,
-        easing: 'spring(1, 80, 10, 0)'
-      })
-    }
-  }, [inView, delay])
+  const shown = inView || prefersReducedMotion
 
   return (
-    <div ref={ref} className={className} style={{ opacity: 0, ...style }}>
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: shown ? 1 : 0,
+        transform: shown ? 'none' : 'translateY(28px)',
+        transition: prefersReducedMotion
+          ? 'none'
+          : `opacity 0.6s ease ${delay}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+        willChange: shown ? 'auto' : 'opacity, transform',
+        ...style,
+      }}
+    >
       {children}
     </div>
   )
@@ -54,23 +59,19 @@ export function FadeUp({ children, delay = 0, className = '', style = {} }) {
 
 export function FadeIn({ children, delay = 0, className = '', style = {} }) {
   const [ref, inView] = useInView()
-  const hasAnimated = useRef(false)
-
-  useEffect(() => {
-    if (inView && ref.current && !hasAnimated.current) {
-      hasAnimated.current = true
-      anime({
-        targets: ref.current,
-        opacity: [0, 1],
-        duration: 800,
-        delay: delay * 1000,
-        easing: 'easeOutQuad'
-      })
-    }
-  }, [inView, delay])
+  const shown = inView || prefersReducedMotion
 
   return (
-    <div ref={ref} className={className} style={{ opacity: 0, ...style }}>
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: shown ? 1 : 0,
+        transition: prefersReducedMotion ? 'none' : `opacity 0.7s ease ${delay}s`,
+        willChange: shown ? 'auto' : 'opacity',
+        ...style,
+      }}
+    >
       {children}
     </div>
   )
@@ -79,25 +80,38 @@ export function FadeIn({ children, delay = 0, className = '', style = {} }) {
 // ─── Counter animation ──────────────────────────────────────────────────────
 export function AnimatedCounter({ target, suffix = '', duration = 2000 }) {
   const [ref, inView] = useInView()
-  const [count, setCount] = useState(0)
+  const spanRef = useRef(null)
   const hasAnimated = useRef(false)
+
+  const setRefs = (node) => {
+    ref.current = node
+    spanRef.current = node
+  }
 
   useEffect(() => {
     if (!inView || hasAnimated.current) return
     hasAnimated.current = true
 
+    if (prefersReducedMotion) {
+      if (spanRef.current) spanRef.current.textContent = `${target}${suffix}`
+      return
+    }
+
+    // Write straight to the DOM node each frame — no per-frame React re-render.
     const obj = { val: 0 }
     anime({
       targets: obj,
       val: target,
       round: 1,
-      duration: duration,
+      duration,
       easing: 'easeOutExpo',
-      update: () => setCount(obj.val)
+      update: () => {
+        if (spanRef.current) spanRef.current.textContent = `${obj.val}${suffix}`
+      },
     })
-  }, [inView, target, duration])
+  }, [inView, target, duration, suffix])
 
-  return <span ref={ref}>{count}{suffix}</span>
+  return <span ref={setRefs}>0{suffix}</span>
 }
 
 // ─── Mobile Menu Hook ──────────────────────────────────────────────────────

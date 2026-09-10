@@ -72,7 +72,7 @@ export default function NotFound() {
       <div className={styles.backgroundGlow}></div>
       
       <div className={styles.logoContainer}>
-        <img src="/pt_buana_logam_perkasa.webp" alt="PT Buana Logam Perkasa" className={styles.logo} />
+        <img src="/pt_buana_logam_perkasa.webp?v=2" alt="PT Buana Logam Perkasa" className={styles.logo} />
       </div>
 
       <div className={styles.content}>

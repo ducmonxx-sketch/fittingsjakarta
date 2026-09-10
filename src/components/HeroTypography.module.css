@@ -53,58 +53,58 @@
   /* Fluid typography scaling */
   font-size: clamp(32px, 8vw, 120px);
   color: transparent;
-  /* Muted grey outlines */
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+  /* Muted charcoal outlines for light background */
+  -webkit-text-stroke: 1px rgba(26, 31, 46, 0.18);
   transition: -webkit-text-stroke-color 0.4s ease, text-shadow 0.4s ease;
   animation: sparkGlow 6s ease-in-out infinite alternate;
 }
 
 @keyframes sparkGlow {
-  0%, 80% { text-shadow: none; -webkit-text-stroke-color: rgba(255, 255, 255, 0.15); }
-  90% { text-shadow: 0 0 10px rgba(242, 184, 36, 0.5); -webkit-text-stroke-color: rgba(242, 184, 36, 0.6); }
-  100% { text-shadow: 0 0 2px rgba(242, 184, 36, 0.2); -webkit-text-stroke-color: rgba(255, 255, 255, 0.15); }
+  0%, 80% { text-shadow: none; -webkit-text-stroke-color: rgba(26, 31, 46, 0.18); }
+  90% { text-shadow: 0 0 10px rgba(0, 87, 184, 0.35); -webkit-text-stroke-color: rgba(0, 87, 184, 0.55); }
+  100% { text-shadow: 0 0 2px rgba(0, 87, 184, 0.15); -webkit-text-stroke-color: rgba(26, 31, 46, 0.18); }
 }
 
 @media (hover: hover) and (pointer: fine) {
   .wordBlock:hover .wordOutline {
-    /* Metallic gold accent on hover */
-    -webkit-text-stroke-color: rgba(242, 184, 36, 0.8);
-    text-shadow: 0 0 20px rgba(242, 184, 36, 0.2);
+    /* Blue accent on hover */
+    -webkit-text-stroke-color: rgba(0, 87, 184, 0.7);
+    text-shadow: 0 0 20px rgba(0, 87, 184, 0.15);
   }
 }
 
 .wordBlock:active .wordOutline {
-  -webkit-text-stroke-color: rgba(242, 184, 36, 0.8);
-  text-shadow: 0 0 20px rgba(242, 184, 36, 0.2);
+  -webkit-text-stroke-color: rgba(0, 87, 184, 0.7);
+  text-shadow: 0 0 20px rgba(0, 87, 184, 0.15);
 }
 
 .wordFilled {
   display: block;
   font-size: clamp(32px, 8vw, 120px);
-  /* Bright metallic gold accent from CONTEXT.md */
-  background: linear-gradient(135deg, var(--gold-accent, #f2b824), var(--gold-light, #fcd97a));
+  /* Dark navy to light blue accent */
+  background: linear-gradient(135deg, #003070, #0057b8 60%, #60a5fa);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 10px 30px rgba(242, 184, 36, 0.3);
+  text-shadow: 0 10px 30px rgba(0, 87, 184, 0.18);
   transition: filter 0.4s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .wordBlock:hover .wordFilled {
-    filter: brightness(1.2);
+    filter: brightness(1.15);
   }
 }
 
 .wordBlock:active .wordFilled {
-  filter: brightness(1.2);
+  filter: brightness(1.15);
 }
 
 .accentLine {
   margin-top: 32px;
   width: 0px;
   height: 2px;
-  background: linear-gradient(to right, var(--gold-accent, #f2b824), transparent);
+  background: linear-gradient(to right, #0057b8, transparent);
   animation: drawLine 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   animation-delay: 0.6s;
 }

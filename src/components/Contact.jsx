@@ -117,7 +117,7 @@ export default function Contact() {
         <FadeUp delay={0.25}>
           <div className={styles.mapContainer}>
             <iframe
-              title="Lokasi Fittings Jakarta"
+              title="Lokasi Fittings Indonesia"
               src="https://maps.google.com/maps?q=PT.+Buana+Logam+Perkasa&t=&z=17&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="450"

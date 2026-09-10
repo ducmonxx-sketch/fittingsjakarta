@@ -27,11 +27,13 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: white;
+}
+
+.logoImage {
+  height: auto;
+  width: 100%;
+  max-width: 320px;
+  object-fit: contain;
 }
 .tagline { 
   font-size: 15px; 
